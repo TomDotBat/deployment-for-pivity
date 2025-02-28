@@ -47,6 +47,7 @@ async function main(){
 		let response = await fetch(`${baseUrl}products/${product}/versions`, {
 			method: "POST",
 			body: Readable.from(encoder),
+			redirect: 'follow',
 			headers: {
 				"Authorization": `Bearer ${token}`,
 				...encoder.headers
