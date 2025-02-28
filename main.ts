@@ -8,7 +8,8 @@ import {
 	path as getPath,
 	changelog as getChangelog,
 	baseUrl as getBaseUrl,
-	dry as isDryRun
+	dry as isDryRun,
+	tenant as getTenant
 } from "./utils";
 import {setFailed} from "@actions/core"
 import {FormData} from "formdata-node"
@@ -17,7 +18,7 @@ import {FormDataEncoder} from "form-data-encoder"
 import {Readable} from "stream";
 
 async function main(){
-	let token, product, version, versionType, path, changelog, baseUrl
+	let token, product, version, versionType, path, changelog, baseUrl, tenant
 	const dry = isDryRun()
 	try {
 		token = getToken()
@@ -28,6 +29,7 @@ async function main(){
 		path = getPath()
 		changelog = getChangelog()
 		baseUrl = getBaseUrl()
+		tenant = getTenant()
 	} catch (err){
 		setFailed(`An error occured during input processing.\n${err}`)
 		return
@@ -48,6 +50,7 @@ async function main(){
 			method: "POST",
 			body: Readable.from(encoder),
 			headers: {
+				"X-Tenant": tenant,
 				"Authorization": `Bearer ${token}`,
 				...encoder.headers
 			}

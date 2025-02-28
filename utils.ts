@@ -85,6 +85,15 @@ export function dry(): boolean {
 	return getInput("dryrun", optional).toLowerCase() === "true"
 }
 
+export function tenant(): string {
+	const tenant = getInput("tenant", optional)
+	if (tenant === ""){
+		return "gmodstore.com"
+	}
+
+	return tenant
+}
+
 /**
  * Set if we should disable intuiting versions, and instead only use the type input.
  */
