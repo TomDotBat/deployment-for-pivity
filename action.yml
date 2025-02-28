@@ -34,3 +34,7 @@ inputs:
     description: "API Base URL"
     required: true
     default: "https://api.gmodstore.com/v3/"
+  tenant:
+    description: "API tenant scope"
+    required: true
+    default: "gmodstore.com"
